@@ -22,7 +22,7 @@
 </style>
 </helmet>
 
-<div style="position:fixed;inset:0;z-index:0;background:linear-gradient(180deg,rgba(18,16,14,0.66) 0%,rgba(18,16,14,0.82) 45%,rgba(18,16,14,0.94) 100%),url('https://media.jasem.dev/background.jfif') center/cover no-repeat;"></div>
+<div style="position:fixed;top:0;left:0;width:100%;height:100lvh;z-index:0;background:linear-gradient(180deg,rgba(18,16,14,0.66) 0%,rgba(18,16,14,0.82) 45%,rgba(18,16,14,0.94) 100%),url('https://media.jasem.dev/background.jfif') center/cover no-repeat;"></div>
 
 <div style="position:relative;z-index:1;">
   <div style="max-width:1240px;margin:0 auto;padding:0 clamp(20px,5vw,64px);">
@@ -36,24 +36,23 @@
     </header>
 
     <section style="{{ heroStyle }}">
-      <div style="flex:1 1 440px;min-width:300px;">
+      <div style="{{ nameBlockStyle }}">
         <span style="font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:0.22em;text-transform:uppercase;color:{{ effAccent }};">Software Engineer</span>
-        <h1 style="font-size:clamp(3rem,8vw,6.5rem);line-height:0.92;font-weight:700;letter-spacing:-0.03em;margin:22px 0 26px;">Jasem<br>Alsereidi</h1>
-        <div style="font-size: clamp(1.15rem,1.9vw,1.5rem); line-height: 1.4; font-weight: 400; color: #e4e2e0; max-width: 32ch; margin: 0 0 18px; font-style: normal; text-decoration-line: none"><div><br></div><div>"People who don't care how long it takes are&nbsp;the reason I have to wait 30 seconds for Word to boot." - Mike Acton</div></div>
+        <h1 style="{{ h1Style }}">Jasem<br>Alsereidi</h1>
+      </div>
+      <figure style="{{ figureStyle }}">
+        <div style="{{ portraitWrapStyle }}">
+          <img src="https://media.jasem.dev/profile.jpeg" alt="Jasem Alsereidi" style="{{ portraitImgStyle }}">
+        </div><span style="{{ emailStyle }}"><span style="width: 7px; height: 7px; border-radius: 50%; background: rgb(115, 238, 220); display: inline-block; flex: 0 0 auto;"></span>CONTACT@JASEM.DEV</span>
+      </figure>
+      <div style="{{ restBlockStyle }}">
+        <div style="{{ quoteStyle }}"><div><br></div><div>"People who don't care how long it takes are&nbsp;the reason I have to wait 30 seconds for Word to boot." - Mike Acton</div></div>
         <p style="font-size:1.02rem;line-height:1.55;color:#9a9c9b;max-width:46ch;font-family:'IBM Plex Mono',monospace;margin:0 0 34px;">Lightweight, private, data-oriented software</p>
         <div style="display:flex;gap:14px;flex-wrap:wrap;">
           <a href="#work" style="font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:0.12em;text-transform:uppercase;padding:14px 22px;background:{{ effAccent }};color:#12100e;font-weight:500;">Project showcase ↓</a>
           <a href="https://github.com/j-alsereidi" target="_blank" rel="noopener" style="font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:0.12em;text-transform:uppercase;padding:14px 22px;border:1px solid #3a3835;color:#e4e2e0;" style-hover="border-color: {{ effAccent }}">GitHub ↗</a>
         </div>
       </div>
-      <figure style="{{ figureStyle }}">
-        <div style="{{ portraitWrapStyle }}">
-          <img src="https://media.jasem.dev/profile.jpeg" alt="Jasem Alsereidi" style="{{ portraitImgStyle }}">
-        </div><span style="display: flex; align-items: center; gap: 10px; font-size: 12px; font-family: &quot;IBM Plex Mono&quot;, monospace; color: #9A9C9B; overflow-wrap: anywhere; flex-wrap: wrap; min-width: 0;"><span style="width: 7px; height: 7px; border-radius: 50%; background: rgb(115, 238, 220); display: inline-block;"></span>CONTACT@JASEM.DEV</span><figcaption style="font-family: 'IBM Plex Mono',monospace; font-size: 10.5px; letter-spacing: 0.12em; text-transform: uppercase; color: #7a7d7d; margin-top: 12px; overflow-wrap: anywhere;">
-          
-        </figcaption>
-        
-      </figure>
     </section>
 
     <section id="work" style="padding:clamp(48px,7vw,96px) 0;">
@@ -142,17 +141,34 @@ class Component extends DCLogic {
     return {
       effAccent: mono ? '#d0cfcf' : accent,
       heroStyle: m
-        ? { display: 'flex', flexDirection: 'column', gap: '30px', alignItems: 'flex-start', minHeight: 'auto', padding: '18px 0 44px' }
-        : { display: 'flex', flexWrap: 'wrap', gap: 'clamp(32px,5vw,72px)', alignItems: 'center', minHeight: 'calc(100vh - 78px)', padding: 'clamp(32px,5vw,56px) 0' },
+        ? { display: 'grid', gridTemplateColumns: '1fr 124px', columnGap: '16px', rowGap: '32px', alignContent: 'start', minHeight: 'auto', padding: '20px 0 40px' }
+        : { display: 'grid', gridTemplateColumns: '1fr auto', columnGap: 'clamp(32px,5vw,72px)', rowGap: '0', alignContent: 'center', minHeight: 'calc(100vh - 78px)', padding: 'clamp(32px,5vw,56px) 0' },
+      nameBlockStyle: m
+        ? { gridColumn: '1', gridRow: '1', alignSelf: 'start' }
+        : { gridColumn: '1', gridRow: '1' },
+      restBlockStyle: m
+        ? { gridColumn: '1 / -1', gridRow: '2' }
+        : { gridColumn: '1', gridRow: '2' },
+      quoteStyle: {
+        fontSize: 'clamp(1.15rem,1.9vw,1.5rem)', lineHeight: 1.4, fontWeight: 400,
+        color: '#e4e2e0', maxWidth: m ? '46ch' : '32ch', margin: '0 0 18px',
+        fontStyle: 'normal', textDecorationLine: 'none',
+      },
+      h1Style: m
+        ? { fontSize: 'clamp(1.9rem,8.5vw,2.6rem)', lineHeight: 0.98, fontWeight: 700, letterSpacing: '-0.02em', margin: '10px 0 0' }
+        : { fontSize: 'clamp(3rem,8vw,6.5rem)', lineHeight: 0.92, fontWeight: 700, letterSpacing: '-0.03em', margin: '22px 0 26px' },
       figureStyle: m
-        ? { order: -1, width: '168px', margin: 0, alignSelf: 'flex-start' }
-        : { flex: '0 0 auto', width: 'clamp(190px,20vw,250px)', minWidth: '170px', margin: 0 },
+        ? { gridColumn: '2', gridRow: '1', width: '124px', margin: 0, alignSelf: 'start' }
+        : { gridColumn: '2', gridRow: '1 / span 2', alignSelf: 'center', width: 'clamp(190px,20vw,250px)', minWidth: '170px', margin: 0 },
       portraitWrapStyle: m
-        ? { overflow: 'hidden', width: '168px', height: '190px', borderRadius: '4px' }
+        ? { overflow: 'hidden', width: '124px', height: '148px', borderRadius: '4px' }
         : { overflow: 'hidden' },
       portraitImgStyle: m
-        ? { width: '100%', height: '190px', objectFit: 'cover', objectPosition: 'center 20%', filter: grayFilter }
+        ? { width: '100%', height: '148px', objectFit: 'cover', objectPosition: 'center 20%', filter: grayFilter }
         : { width: '351px', height: '342px', objectFit: 'cover', filter: grayFilter },
+      emailStyle: m
+        ? { display: 'flex', alignItems: 'center', gap: '6px', marginTop: '8px', fontFamily: "'IBM Plex Mono', monospace", fontSize: '9px', letterSpacing: '0.02em', color: '#9A9C9B', whiteSpace: 'nowrap' }
+        : { display: 'flex', alignItems: 'center', gap: '8px', marginTop: '12px', fontFamily: "'IBM Plex Mono', monospace", fontSize: '11px', letterSpacing: '0.04em', color: '#9A9C9B', whiteSpace: 'nowrap' },
       footerImgStyle: m
         ? { display: 'none' }
         : { position: 'absolute', width: '620px', height: '586px', filter: 'grayscale(1)', opacity: 0.07, pointerEvents: 'none', left: '798px', top: '-16px' },

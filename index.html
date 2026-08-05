@@ -49,9 +49,9 @@
       <div style="{{ restBlockStyle }}">
         <div style="{{ quoteStyle }}"><div><br></div><div>"People who don't care how long it takes are&nbsp;the reason I have to wait 30 seconds for Word to boot." - Mike Acton</div></div>
         <p style="font-size:1.02rem;line-height:1.55;color:#9a9c9b;max-width:46ch;font-family:'IBM Plex Mono',monospace;margin:0 0 34px;">Lightweight, private, data-oriented software</p>
-        <div style="display:flex;gap:14px;flex-wrap:wrap;">
-          <a href="#work" style="font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:0.12em;text-transform:uppercase;padding:14px 22px;background:{{ effAccent }};color:#12100e;font-weight:500;">Project showcase ↓</a>
-          <a href="https://github.com/j-alsereidi" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:9px;font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:0.12em;text-transform:uppercase;padding:14px 22px;border:1px solid #3a3835;color:#e4e2e0;" style-hover="border-color: {{ effAccent }}"><svg width="15" height="15" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true" style="flex:0 0 auto;"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0016 8c0-4.42-3.58-8-8-8z"></path></svg>GitHub ↗</a>
+        <div style="display:flex;gap:{{ btnGap }};flex-wrap:nowrap;">
+          <a href="#work" style="{{ showcaseBtnStyle }}">Project showcase ↓</a>
+          <a href="https://github.com/j-alsereidi" target="_blank" rel="noopener" style="{{ githubBtnStyle }}" style-hover="border-color: {{ effAccent }}"><svg width="15" height="15" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true" style="flex:0 0 auto;"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0016 8c0-4.42-3.58-8-8-8z"></path></svg>GitHub ↗</a>
         </div>
       </div>
     </section>
@@ -142,11 +142,25 @@ class Component extends DCLogic {
     return {
       effAccent: mono ? '#d0cfcf' : accent,
       heroStyle: m
-        ? { display: 'grid', gridTemplateColumns: '1fr 124px', columnGap: '16px', rowGap: '32px', alignContent: 'start', minHeight: 'calc(100svh - 64px)', padding: '20px 0 72px' }
+        ? { display: 'grid', gridTemplateColumns: '1fr 124px', columnGap: '16px', rowGap: '32px', alignContent: 'start', minHeight: 'calc(100svh - 64px)', padding: '48px 0 72px' }
         : { display: 'grid', gridTemplateColumns: '1fr auto', columnGap: 'clamp(32px,5vw,72px)', rowGap: '0', alignContent: 'center', minHeight: 'calc(100vh - 78px)', padding: 'clamp(32px,5vw,56px) 0' },
       nameBlockStyle: m
-        ? { gridColumn: '1', gridRow: '1', alignSelf: 'start' }
+        ? { gridColumn: '1', gridRow: '1', alignSelf: 'center', minHeight: '148px', display: 'flex', flexDirection: 'column', justifyContent: 'center' }
         : { gridColumn: '1', gridRow: '1' },
+      btnGap: m ? '10px' : '14px',
+      showcaseBtnStyle: {
+        fontFamily: "'IBM Plex Mono',monospace", fontSize: m ? '10.5px' : '12px',
+        letterSpacing: m ? '0.06em' : '0.12em', textTransform: 'uppercase',
+        padding: m ? '13px 15px' : '14px 22px', background: mono ? '#d0cfcf' : accent,
+        color: '#12100e', fontWeight: 500, whiteSpace: 'nowrap',
+      },
+      githubBtnStyle: {
+        display: 'inline-flex', alignItems: 'center', gap: m ? '7px' : '9px',
+        fontFamily: "'IBM Plex Mono',monospace", fontSize: m ? '10.5px' : '12px',
+        letterSpacing: m ? '0.06em' : '0.12em', textTransform: 'uppercase',
+        padding: m ? '13px 15px' : '14px 22px', border: '1px solid #3a3835',
+        color: '#e4e2e0', whiteSpace: 'nowrap',
+      },
       restBlockStyle: m
         ? { gridColumn: '1 / -1', gridRow: '2' }
         : { gridColumn: '1', gridRow: '2' },

@@ -1,10 +1,9 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="icon" type="image/png" href="https://media.jasem.dev/icon.png">
-  <script src="./support.js"></script>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
 </head>
 <body>
 <x-dc>
@@ -28,13 +27,13 @@
 <div style="position:relative;z-index:1;">
   <div style="max-width:1240px;margin:0 auto;padding:0 clamp(20px,5vw,64px);">
 
-    <header style="display:flex;align-items:center;justify-content:space-between;gap:24px;padding:26px 0;font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:0.16em;text-transform:uppercase;">
+    <header style="display:flex;align-items:center;justify-content:space-between;gap:12px;padding:26px 0;font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:0.16em;text-transform:uppercase;">
       <span style="display: flex; align-items: center; gap: 10px; text-align: left"><br></span>
-      <nav style="display: flex; gap: 26px; color: #a7a9a8; flex-direction: row; justify-content: flex-start; align-items: flex-end">
-        <a href="#work" style="color:#a7a9a8;">PROJECTS</a>
-        <a href="https://jasem.dev/cv" style="color: #FFFBFE">Download CV</a>
-        <a href="https://github.com/j-alsereidi" target="_blank" rel="noopener" style="color:#fffbfe;">GitHub ↗</a>
-        <a href="mailto:contact@jasem.dev" style="display:inline-flex;align-items:center;gap:8px;color:#12100e;background:{{ effAccent }};padding:8px 15px;font-weight:500;"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex:0 0 auto;"><rect x="2" y="4" width="20" height="16" rx="2"></rect><path d="m2 7 10 6 10-6"></path></svg>Contact</a>
+      <nav style="{{ navStyle }}">
+        <a href="#work" style="color:#a7a9a8;white-space:nowrap;">PROJECTS</a>
+        <a href="https://github.com/j-alsereidi" target="_blank" rel="noopener" style="color:#fffbfe;white-space:nowrap;">GitHub ↗</a>
+        <a href="https://jasem.dev/cv" style="color: #FFFBFE;white-space:nowrap;">Download CV ↗</a>
+        <a href="mailto:contact@jasem.dev" style="{{ contactBtnStyle }}"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex:0 0 auto;"><rect x="2" y="4" width="20" height="16" rx="2"></rect><path d="m2 7 10 6 10-6"></path></svg><span style="{{ contactLabelStyle }}">Contact</span></a>
       </nav>
     </header>
 
@@ -143,6 +142,19 @@ class Component extends DCLogic {
     const grayFilter = 'grayscale(1) contrast(1.05)';
     return {
       effAccent: mono ? '#d0cfcf' : accent,
+      navStyle: {
+        display: 'flex', alignItems: 'center',
+        gap: m ? '13px' : '26px',
+        fontSize: m ? '11px' : '12px',
+        letterSpacing: m ? '0.08em' : '0.16em',
+        color: '#a7a9a8', flexWrap: 'nowrap', minWidth: 0,
+      },
+      contactBtnStyle: {
+        display: 'inline-flex', alignItems: 'center', gap: m ? '0px' : '8px',
+        color: '#12100e', background: mono ? '#d0cfcf' : accent,
+        padding: m ? '8px 9px' : '8px 15px', fontWeight: 500, whiteSpace: 'nowrap',
+      },
+      contactLabelStyle: m ? { display: 'none' } : { display: 'inline' },
       heroStyle: m
         ? { display: 'grid', gridTemplateColumns: '1fr 124px', columnGap: '16px', rowGap: '32px', alignContent: 'start', minHeight: 'calc(100svh - 64px)', padding: '48px 0 72px' }
         : { display: 'grid', gridTemplateColumns: '1fr auto', columnGap: 'clamp(32px,5vw,72px)', rowGap: '0', alignContent: 'center', minHeight: 'calc(100vh - 78px)', padding: 'clamp(32px,5vw,56px) 0' },

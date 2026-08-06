@@ -4,8 +4,10 @@ const FALLBACK_MEDIA = 'https://pub-8c76f7ee203c4f509b9cb92dfa97165b.r2.dev';
 
 export default {
   async fetch(request, env) {
+    const url = new URL(request.url);
+
     // ignore for custom/main domain
-    if (!new URL(request.url).hostname.endsWith('.workers.dev')) {
+    if (!url.hostname.endsWith('.workers.dev')) {
       return env.ASSETS.fetch(request);
     }
 
@@ -18,7 +20,6 @@ export default {
 
     const html = (await response.text()).replaceAll(CANONICAL_MEDIA, FALLBACK_MEDIA);
 
-    // Drop headers that no longer match body
     const headers = new Headers(response.headers);
     headers.delete('etag');
     headers.delete('content-length');
